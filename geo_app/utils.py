@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 
 
 def object_list_towns():
+    #function load data from xml file and save it into class Town object list
     try:
         town_file = ET.parse('csv_files/SIMC_Adresowy_2021-06-09.xml')
         mystreet = town_file.getroot()
@@ -18,7 +19,7 @@ def object_list_towns():
 
 
 def search_town(list_of_elements, searched_city):
-    #takes only ist values
+    #function search in list Town.objects if any contains 'searched_city' if not return False if yes returns id of that city
     for item in list_of_elements:
         if item.name == searched_city:
             return str(item.id_t)
@@ -26,7 +27,7 @@ def search_town(list_of_elements, searched_city):
 
 
 def load_street_file():
-    #taking values
+    #loading xml file and load it to getrootobject
     try:
         street_file = ET.parse('csv_files/ULIC_Adresowy_2021-06-10.xml')
         my_street_xml = street_file.getroot()
@@ -36,7 +37,7 @@ def load_street_file():
     return my_street_xml
 
 def list_of_streets(id_town, my_street_xml):
-    #taking values
+    #search if given id_town has any streets if yes it returns list of it if not returns empty list
     try:
         list_of_streets = []
         for symbol, street_name in zip(my_street_xml.iter('SYM'), my_street_xml.iter('NAZWA_1')):
@@ -49,3 +50,4 @@ def list_of_streets(id_town, my_street_xml):
 
 town_list = object_list_towns()
 street_xml = load_street_file()
+
